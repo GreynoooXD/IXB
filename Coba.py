@@ -207,20 +207,22 @@ def login():
 		
 def login_lagi334():
 	try:
+		os.system('clear')
+		banner()
 		cetak(nel('Disarankan Untuk Menggunakan Cookie Yang Masih Fresh Untuk Melakukan Crack Account',width=90,style=f"bold white"))
-		your_cookies = input(' [+] Masukan Cookie : ')
+		your_cookies = input(' ╰─  Masukan Cookie : ')
 		with requests.Session() as r:
 			try:
 				r.headers.update({'content-type': 'application/x-www-form-urlencoded',})
 				data = {'access_token': '1348564698517390|007c0a9101b9e1c8ffab727666805038','scope': ''}
-				response = json.loads(r.post('https://graph.facebook.com/v2.6/device/login/', data = data).text)
+				response = json.loads(r.post('https://graph.facebook.com/v16.0/device/login/', data = data).text)
 				code, user_code = response['code'], response['user_code']
-				verification_url, status_url = ('https://m.facebook.com/device?user_code={}'.format(user_code)), ('https://graph.facebook.com/v2.6/device/login_status?method=post&code={}&access_token=1348564698517390|007c0a9101b9e1c8ffab727666805038&callback=LeetsharesCallback'.format(code))
+				verification_url, status_url = ('https://m.facebook.com/device?user_code={}'.format(user_code)), ('https://graph.facebook.com/v16.0/device/login_status?method=post&code={}&access_token=1348564698517390|007c0a9101b9e1c8ffab727666805038&callback=LeetsharesCallback'.format(code))
 				r.headers.pop('content-type')
 				r.headers.update({'sec-fetch-mode': 'navigate','user-agent': 'Mozilla/5.0 (Linux; Android 9; RMX1941 Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/107.0.5304.54 Mobile Safari/537.36','sec-fetch-site': 'cross-site','Host': 'm.facebook.com','accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9','sec-fetch-dest': 'document',})
 				response2 = r.get(verification_url, cookies = {'cookie': your_cookies}).text
 				if 'Bagaimana Anda ingin masuk ke Facebook?' in str(response2) or '/login/?next=' in str(response2):
-					print(" [+] Cookie Invalid...", end='\r');time.sleep(3.5);print("                     ", end='\r');exit()
+					print(" ╰─  Cookie Invalid...", end='\r');time.sleep(3.5);print("                     ", end='\r');exit()
 				else:
 					action = re.search('action="(.*?)">', str(response2)).group(1).replace('amp;', '')
 					fb_dtsg = re.search('name="fb_dtsg" value="(.*?)"', str(response2)).group(1)
@@ -252,12 +254,12 @@ def login_lagi334():
 							r.headers.update({'sec-fetch-mode': 'no-cors','referer': 'https://graph.facebook.com/','Host': 'graph.facebook.com','accept': '*/*','sec-fetch-dest': 'script','sec-fetch-site': 'cross-site',})
 							response7 = r.get(status_url, cookies = {'cookie': your_cookies}).text
 							access_token = re.search('"access_token": "(.*?)"', str(response7)).group(1)
-							print(f"\n [+] Token : {access_token}")
+							print(f"\n ╰─  Token : {access_token}")
 							tokenew = open(".token.txt","w").write(access_token)
 							cook= open(".cok.txt","w").write(your_cookies)
-							print("\n [+] Login Berhasil | python BrayennnFB.py");exit()
+							print("\n ╰─  Login Berhasil | python BrayennnFB.py");exit()
 			except Exception as e:
-				print(" [+] Cookies Mokad Kontol")
+				print(" ╰─  Cookies Mokad Kontol")
 				os.system('rm -rf .token.txt && rm -rf .cok.txt')
 				print(e)
 				time.sleep(3)
